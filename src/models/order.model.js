@@ -2,7 +2,7 @@ const { model, Schema } = require('mongoose')
 
 const orderSchema = new Schema(
   {
-    products: [{ type: Schema.Types.ObjectId, ref: 'Product', required: true }],
+    products: [{ type: Schema.ObjectId, ref: 'Product', required: true }],
     total: { type: Number, required: true }
   },
   {
@@ -10,4 +10,4 @@ const orderSchema = new Schema(
   }
 )
 
-module.exports = model('Cashier', orderSchema)
+module.exports = model('Order', orderSchema)

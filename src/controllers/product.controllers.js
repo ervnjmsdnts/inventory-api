@@ -12,7 +12,7 @@ module.exports.getProduct = async (req, res) => {
   return res.json(product)
 }
 
-module.exports.addProduct = async (req, res) => {
+module.exports.apiProduct = async (req, res) => {
   const response = await axios.get(
     `https://go-upc.com/api/v1/code/${req.params.code}`,
     {
@@ -30,10 +30,15 @@ module.exports.addProduct = async (req, res) => {
 
   const productExist = await Product.findOne({ barcode: code, isActive: true })
 
-  if (productExist)
+  if (productExist) {
     return res.status(400).send({ message: 'Product already in inventory' })
+  }
 
-  const product = new Product({ barcode: code, name, image: imageUrl })
+  return res.status(200).send({ code, name, imageUrl })
+}
+
+module.exports.addProduct = async (req, res) => {
+  const product = new Product({ ...req.body })
 
   await product.save()
 
@@ -41,7 +46,10 @@ module.exports.addProduct = async (req, res) => {
 }
 
 module.exports.updateProduct = async (req, res) => {
-  const product = await Product.findOneAndUpdate(req.params.id, { ...req.body })
+  const product = await Product.findOneAndUpdate(
+    { _id: req.params.id },
+    { ...req.body }
+  )
 
   if (!product) return res.status(400).send({ message: 'Product not found' })
 

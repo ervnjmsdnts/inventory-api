@@ -4,12 +4,14 @@ const {
   getAllProducts,
   getProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  apiProduct
 } = require('../controllers/product.controllers')
 
 const router = Router()
 
-router.post('/:code', addProduct)
+router.post('/', addProduct)
+router.get('/fetch/:code', apiProduct)
 router.get('/', getAllProducts)
 router.get('/:id', getProduct)
 router.patch('/:id', updateProduct)
