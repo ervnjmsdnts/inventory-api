@@ -2,8 +2,19 @@ const { model, Schema } = require('mongoose')
 
 const orderSchema = new Schema(
   {
-    products: [{ type: Schema.ObjectId, ref: 'Product', required: true }],
-    total: { type: Number, required: true }
+    products: [
+      {
+        productId: { type: String },
+        name: { type: String },
+        barcode: { type: String },
+        price: { type: Number },
+        amount: { type: Number },
+        image: { type: String, default: 'https://via.placeholder.com/100' }
+      }
+    ],
+    paymentAmount: { type: Number },
+    subTotal: { type: Number },
+    total: { type: Number }
   },
   {
     timestamps: true
