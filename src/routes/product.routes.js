@@ -5,11 +5,13 @@ const {
   getProduct,
   updateProduct,
   deleteProduct,
-  apiProduct
+  apiProduct,
+  changeImage
 } = require('../controllers/product.controllers')
 
 const router = Router()
 
+router.patch('/change-image/:id', changeImage)
 router.post('/', addProduct)
 router.get('/fetch/:code', apiProduct)
 router.get('/', getAllProducts)

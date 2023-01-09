@@ -26,5 +26,5 @@ module.exports.addOrder = async (req, res) => {
 
   await order.save()
 
-  return res.status(200).send({ message: 'Order added' })
+  return res.status(200).json(order)
 }
